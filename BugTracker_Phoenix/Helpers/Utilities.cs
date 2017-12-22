@@ -23,7 +23,7 @@ namespace BugTracker_Phoenix.Helpers
                 propertyList.Add(property);
             }
             return propertyList;
-
+            //New comment here
         }
 
         public static string GetPriorityById(int id)
