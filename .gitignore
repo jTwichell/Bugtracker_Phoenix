@@ -301,3 +301,4 @@ __pycache__/
 #Ignore config files
 private.config
 web.release.config
+web.config
