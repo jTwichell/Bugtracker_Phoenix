@@ -95,6 +95,46 @@ namespace BugTracker_Phoenix.Controllers
             }
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DemoLogin(string role)
+        {
+            var email = "";
+            var password = "Abc&123!";
+            var returnUrl = "/Dashboard/BasicDashboard";
+            switch(role)
+            {
+                case "Admin":
+                    email = "DemoAdmin@mailinator.com";
+                    break;
+                case "ProjectManager":
+                    email = "DemoProjectManager@mailinator.com";
+                    break;
+                case "Developer":
+                    email = "DemoDeveloper@mailinator.com";
+                    break;
+                case "Submitter":
+                    email = "DemoSubmitter@mailinator.com";
+                    break;
+            }
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(email, password, false, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                case SignInStatus.Failure:
+                default:
+                    return RedirectToAction("Login", "Account");
+            }
+        }
+
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

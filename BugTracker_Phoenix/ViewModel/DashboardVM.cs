@@ -8,13 +8,16 @@ namespace BugTracker_Phoenix.ViewModel
 {
     public class DashboardVM
     {
-        public List<Project> Projects { get; set; }
-        public List<Ticket> Tickets { get; set; }
-
+        public List<Project> RecentProjects { get; set; }
+        public List<Ticket> RecentTickets { get; set; }
+        public List<TicketNotification> RecentNotifications { get; set; }
+        public List<TicketHistory> RecentHistories { get; set; }
         public DashboardVM()
         {
-            Projects = new List<Project>();
-            Tickets = new List<Ticket>();
+            RecentProjects = new List<Project>();
+            RecentTickets = new List<Ticket>();
+            RecentNotifications = new List<TicketNotification>();
+            RecentHistories = new List<TicketHistory>();
         }
     }
 }

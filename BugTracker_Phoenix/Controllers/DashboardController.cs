@@ -28,19 +28,22 @@ namespace BugTracker_Phoenix.Controllers
             switch (myRole)
             {
                 case "Admin":
-                    dashboardData.Projects = db.Projects.ToList();
-                    dashboardData.Tickets = db.Tickets.ToList();
+                    dashboardData.RecentProjects = db.Projects.ToList();
+                    dashboardData.RecentTickets = db.Tickets.OrderByDescending(tn => tn.Created).Take(5).ToList();
+                    dashboardData.RecentNotifications = db.TicketNotifications.OrderByDescending(tn => tn.Created).Take(5).ToList();
+                    dashboardData.RecentHistories = db.TicketHistories.OrderByDescending(th => th.ChangeDate).Take(5).ToList();
+                    
                     break;
                 case "ProjectManager":
-                    dashboardData.Projects = projHelper.ListUserProjects(userId).ToList();
-                    dashboardData.Tickets = tixHelper.GetPMTickets();
+                    dashboardData.RecentProjects = projHelper.ListUserProjects(userId).ToList();
+                    dashboardData.RecentTickets = tixHelper.GetPMTickets();
                     break;
                 case "Developer":
-                    dashboardData.Projects = projHelper.ListUserProjects(userId).ToList();
-                    dashboardData.Tickets = db.Tickets.Where(t => t.AssignToUserId == userId).ToList();
+                    dashboardData.RecentProjects = projHelper.ListUserProjects(userId).ToList();
+                    dashboardData.RecentTickets = db.Tickets.Where(t => t.AssignToUserId == userId).ToList();
                     break;
                 case "Submitter":                   
-                    dashboardData.Tickets = db.Tickets.Where(t => t.OwnerUserId == userId).ToList();
+                    dashboardData.RecentTickets = db.Tickets.Where(t => t.OwnerUserId == userId).ToList();
                     break;
                 default:
                     ViewBag.Message = "You will not be able to see any data until you are assigned to a role.";
@@ -49,46 +52,6 @@ namespace BugTracker_Phoenix.Controllers
             return View(dashboardData);
         }
 
-        #region Dashboard Action for each Role...
-        //// GET: Dashboard
-        //[Authorize(Roles = "Admin")]
-        //public ActionResult AdminDashboard()
-        //{
-        //    var adminDB = new DashboardVM();
-        //    adminDB.Projects = db.Projects.ToList();
-        //    adminDB.Tickets = db.Tickets.ToList();
-        //    return View("Dashboard",adminDB);
-        //}
-
-        //// GET: Dashboard
-        //[Authorize(Roles = "ProjectManager")]
-        //public ActionResult PMDashboard()
-        //{
-        //    var pmDB = new DashboardVM();
-        //    pmDB.Projects = projHelper.ListUserProjects(User.Identity.GetUserId()).ToList();
-        //    pmDB.Tickets = tixHelper.GetPMTickets();
-        //    return View("Dashboard", pmDB);
-        //}
-
-        //// GET: Dashboard
-        //[Authorize(Roles = "Submitter")]
-        //public ActionResult SubmitterDashboard()
-        //{
-        //    var userId = User.Identity.GetUserId();
-        //    var subDB = new DashboardVM();
-        //    subDB.Tickets = db.Tickets.Where(t => t.OwnerUserId == userId).ToList();
-        //    return View("Dashboard", subDB);
-        //}
-
-        //// GET: Dashboard
-        //[Authorize(Roles = "Developer")]
-        //public ActionResult DeveloperDashboard()
-        //{
-        //    var devDB = new DashboardVM();
-        //    devDB.Projects = db.Projects.ToList();
-        //    devDB.Tickets = db.Tickets.ToList();
-        //    return View("Dashboard", devDB);
-        //}
-        #endregion
+      
     }
 }

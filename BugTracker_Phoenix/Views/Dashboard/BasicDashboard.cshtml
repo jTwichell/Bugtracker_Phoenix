@@ -6,7 +6,92 @@
 
 <h2>@ViewBag.Title</h2>
 
-@if (Model.Projects.Count() == 0 && Model.Tickets.Count == 0)
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon">
+                        <i class="fa fa-caret-square-o-right"></i>
+                    </div>
+                    <div class="count">53</div>
+                    <h3>Open/Unassigned</h3>
+                    <p>Tickets that have not been assigned</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon">
+                        <i class="fa fa-comments-o"></i>
+                    </div>
+                    <div class="count">23</div>
+                    <h3>High Priority</h3>
+                    <p>Hot Ticket items...</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon">
+                        <i class="fa fa-sort-amount-desc"></i>
+                    </div>
+                    <div class="count">12</div>
+                    <h3>Unread Notifications</h3>
+                    <p>You have unread notifications in your inbox</p>
+                </div>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats">
+                    <div class="icon">
+                        <i class="fa fa-check-square-o"></i>
+                    </div>
+                    <div class="count">3</div>
+                    <h3>Assigned Projects</h3>
+                    <p>Your assigned project count</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <!-- pie chart -->
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Pie Chart <small>Sessions</small></h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a href="#">Settings 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Settings 2</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content2">
+                            <div id="graph_donut" style="width:100%; height:300px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Pie chart -->
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+
+@if (Model.RecentProjects.Count() == 0 && Model.RecentTickets.Count == 0)
 {
 }
 else
@@ -15,8 +100,10 @@ else
     <!-- Add a Bootstrap Dynamic pills componenet -->
     <ul class="nav nav-pills">
         <li class="active"><a data-toggle="pill" href="#general">General Information</a></li>
-        <li><a data-toggle="pill" href="#projects">Projects</a></li>
-        <li><a id="tickettab" data-toggle="pill" href="#tickets">Tickets</a></li>
+        <li><a data-toggle="pill" href="#projects">Recent Projects</a></li>
+        <li><a id="tickettab" data-toggle="pill" href="#tickets">Recent Tickets</a></li>
+        <li><a id="" data-toggle="pill" href="#notifications">Recent Notifications</a></li>
+        <li><a id="" data-toggle="pill" href="#histories">Recent Histories</a></li>
     </ul>
 
     <div class="tab-content">
@@ -24,11 +111,8 @@ else
             @{
                 var index = 1;
             }
-            @foreach (var project in Model.Projects)
+            @foreach (var project in Model.RecentProjects)
             {
-
-
-
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -40,10 +124,10 @@ else
                             <table class="table">
                                 <tr>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Tickets.FirstOrDefault().Title)
+                                        @Html.DisplayNameFor(model => model.RecentTickets.FirstOrDefault().Title)
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.Tickets.FirstOrDefault().Description)
+                                        @Html.DisplayNameFor(model => model.RecentTickets.FirstOrDefault().Description)
                                     </th>
                                     <th></th>
                                 </tr>
@@ -83,15 +167,15 @@ else
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => Model.Projects.FirstOrDefault().Name)
+                        @Html.DisplayNameFor(model => Model.RecentProjects.FirstOrDefault().Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => Model.Projects.FirstOrDefault().Description)
+                        @Html.DisplayNameFor(model => Model.RecentProjects.FirstOrDefault().Description)
                     </th>
                     <th></th>
                 </tr>
                 <!-- Body -->
-                @foreach (var project in Model.Projects)
+                @foreach (var project in Model.RecentProjects)
                 {
                     <tr>
                         <td>
@@ -118,15 +202,15 @@ else
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => Model.Tickets.FirstOrDefault().Title)
+                        @Html.DisplayNameFor(model => Model.RecentTickets.FirstOrDefault().Title)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => Model.Tickets.FirstOrDefault().Description)
+                        @Html.DisplayNameFor(model => Model.RecentTickets.FirstOrDefault().Description)
                     </th>
                     <th></th>
                 </tr>
                 <!-- Body -->
-                @foreach (var ticket in Model.Tickets)
+                @foreach (var ticket in Model.RecentTickets)
                 {
                     <tr>
                         <td>
@@ -140,6 +224,90 @@ else
                             @Html.ActionLink("Edit", "Edit", new { id = ticket.Id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = ticket.Id })
                         </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div id="notifications" class="tab-pane fade">
+            <h2>Recent Notifications</h2>
+           
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentNotifications.FirstOrDefault().Created)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentNotifications.FirstOrDefault().SenderId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentNotifications.FirstOrDefault().RecipientId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentNotifications.FirstOrDefault().Body)
+                    </th>
+                </tr>
+                <!-- Body -->
+                @foreach (var notification in Model.RecentNotifications)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => notification.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => notification.SenderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => notification.RecipientId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => notification.Body)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div id="histories" class="tab-pane fade">
+            <h2>Recent Histories</h2>
+         
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentHistories.FirstOrDefault().ChangeDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentHistories.FirstOrDefault().TicketId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentHistories.FirstOrDefault().Property)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentHistories.FirstOrDefault().OldValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => Model.RecentHistories.FirstOrDefault().NewValue)
+                    </th>
+                
+                </tr>
+                <!-- Body -->
+                @foreach (var hisotry in Model.RecentHistories)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => hisotry.ChangeDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => hisotry.TicketId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => hisotry.Property)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => hisotry.OldValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => hisotry.NewValue)
+                        </td>
+                        
                     </tr>
                 }
             </table>

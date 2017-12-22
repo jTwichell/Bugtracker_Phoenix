@@ -145,6 +145,62 @@ namespace BugTracker_Phoenix.Migrations
             }
             #endregion
 
+            #region Seed Demo Users
+            //Seed a few demo users and roles
+            if (!context.Users.Any(u => u.Email == "DemoAdmin@mailinator.com"))
+            {
+                //If none is found then create a new user with that email
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoAdmin@mailinator.com",
+                    Email = "DemoAdmin@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Admin",
+                    DisplayName = "Demo Admin",
+                    MediaUrl = ""
+                }, "Abc&123!"); // <-- password for this user
+            }
+            if (!context.Users.Any(u => u.Email == "DemoProjectManager@mailinator.com"))
+            {
+                //If none is found then create a new user with that email
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoProjectManager@mailinator.com",
+                    Email = "DemoProjectManager@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "ProjectManager",
+                    DisplayName = "Demo ProjectManager",
+                    MediaUrl = ""
+                }, "Abc&123!"); // <-- password for this user
+            }
+            if (!context.Users.Any(u => u.Email == "DemoDeveloper@mailinator.com"))
+            {
+                //If none is found then create a new user with that email
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoDeveloper@mailinator.com",
+                    Email = "DemoDeveloper@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Developer",
+                    DisplayName = "Demo Developer",
+                    MediaUrl = ""
+                }, "Abc&123!"); // <-- password for this user
+            }
+            if (!context.Users.Any(u => u.Email == "DemoSubmitter@mailinator.com"))
+            {
+                //If none is found then create a new user with that email
+                userManager.Create(new ApplicationUser
+                {
+                    UserName = "DemoSubmitter@mailinator.com",
+                    Email = "DemoSubmitter@mailinator.com",
+                    FirstName = "Demo",
+                    LastName = "Submitter",
+                    DisplayName = "Demo Submitter",
+                    MediaUrl = ""
+                }, "Abc&123!"); // <-- password for this user
+            }
+            #endregion
+          
             #region Role Assignment Region
             var userId = userManager.FindByEmail("Admin@mailinator.com").Id;
             userManager.AddToRole(userId, "Admin");
@@ -167,6 +223,21 @@ namespace BugTracker_Phoenix.Migrations
             userId = userManager.FindByEmail("Submitter2@mailinator.com").Id;
             userManager.AddToRole(userId, "Submitter");
 
+            #endregion
+
+            #region Add demo users to roles
+            userId = userManager.FindByEmail("DemoAdmin@mailinator.com").Id;
+            userManager.AddToRole(userId, "Admin");
+
+            userId = userManager.FindByEmail("DemoProjectManager@mailinator.com").Id;
+            userManager.AddToRole(userId, "ProjectManager");
+
+            userId = userManager.FindByEmail("DemoDeveloper@mailinator.com").Id;
+            userManager.AddToRole(userId, "Developer");
+
+            userId = userManager.FindByEmail("DemoSubmitter@mailinator.com").Id;
+            userManager.AddToRole(userId, "Submitter");
+            
             #endregion
 
             #region Seed TicketType table

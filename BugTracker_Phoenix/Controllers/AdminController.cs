@@ -1,6 +1,7 @@
 ﻿using BugTracker_Phoenix.Helpers;
 using BugTracker_Phoenix.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BugTracker_Phoenix.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRolesHelper roleHelper = new UserRolesHelper();
         private ProjectsHelper projectHelper = new ProjectsHelper();
-
+      
         // GET: Admin
         public ActionResult ProjectAssign(string id)
         {
@@ -107,8 +108,6 @@ namespace BugTracker_Phoenix.Controllers
 
         }
 
-
-
-      
     }
 }
+

@@ -56,7 +56,7 @@
                                         <a><i class="fa fa-home"></i> Account <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <li><a href=@Url.Action("Register","Account")>Register</a></li>
-                                            <li><a href=@Url.Action("Login","Account")>Log in</a></li>    
+                                            <li><a href=@Url.Action("Login","Account")>Log in</a></li>   
                                             <li>
                                                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                                                 {
@@ -66,7 +66,43 @@
                                             </li>                                                                         
                                         </ul>
                                     </li>
-
+                                    <li>
+                                        <a><i class="fa fa-desktop"></i> Demo Users <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li>
+                                                @using (Html.BeginForm("DemoLogin", "Account", FormMethod.Post, new { id = "demoAdminForm"}))
+                                                {
+                                                    @Html.Hidden("Role", "Admin")
+                                                    @Html.AntiForgeryToken()
+                                                    <a href="javascript:document.getElementById('demoAdminForm').submit()">Demo Admin</a>
+                                                }
+                                            </li>
+                                            <li>
+                                                @using (Html.BeginForm("DemoLogin", "Account", FormMethod.Post, new { id = "demoProjectManagerForm" }))
+                                                {
+                                                    @Html.Hidden("Role", "ProjectManager")
+                                                    @Html.AntiForgeryToken()
+                                                    <a href="javascript:document.getElementById('demoProjectManagerForm').submit()">Demo Project Manager</a>
+                                                }
+                                            </li>
+                                            <li>
+                                                @using (Html.BeginForm("DemoLogin", "Account", FormMethod.Post, new { id = "demoDeveloperForm" }))
+                                                {
+                                                    @Html.Hidden("Role", "Developer")
+                                                    @Html.AntiForgeryToken()
+                                                    <a href="javascript:document.getElementById('demoDeveloperForm').submit()">Demo Developer</a>
+                                                }
+                                            </li>
+                                            <li>
+                                                @using (Html.BeginForm("DemoLogin", "Account", FormMethod.Post, new { id = "demoSubmitterForm" }))
+                                                {
+                                                    @Html.Hidden("Role", "Submitter")
+                                                    @Html.AntiForgeryToken()
+                                                    <a href="javascript:document.getElementById('demoSubmitterForm').submit()">Demo Submitter</a>
+                                                }
+                                            </li>
+                                        </ul>
+                                    </li>
                                     <li>
                                         <a><i class="fa fa-desktop"></i> Users <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
@@ -160,10 +196,10 @@
                                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                         <li>
                                             <a>
-                                                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                                                <span class="image"><img src=@UserHelper.GetUserPhoto() alt="Profile Image" /></span>
                                                 <span>
-                                                    <span>John Smith</span>
-                                                    <span class="time">3 mins ago</span>
+                                                    <span>@UserHelper.GetUserName()</span>
+                                                    <span class="time"></span>
                                                 </span>
                                                 <span class="message">
                                                     Film festivals used to be do-or-die moments for movie makers. They were where...
@@ -265,7 +301,11 @@
         <script src="~/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
         <script src="~/vendors/moment/min/moment.min.js"></script>
         <script src="~/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-        <script src="~/Scripts/custom.min.js"></script>
+        <script src="~/vendors/raphael/raphael.min.js"></script>
+        <script src="~/vendors/morris.js/morris.min.js"></script>
+        
+    
+        <script src="~/Scripts/custom.js"></script>
         <!-- Gentellela files -->
 
         @*<script src="~/Scripts/jquery.dataTables.min.js"></script>*@

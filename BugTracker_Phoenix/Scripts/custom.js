@@ -2706,10 +2706,10 @@ if (typeof NProgress != 'undefined') {
 				Morris.Donut({
 				  element: 'graph_donut',
 				  data: [
-					{label: 'Jam', value: 25},
-					{label: 'Frosted', value: 40},
-					{label: 'Custard', value: 25},
-					{label: 'Sugar', value: 10}
+					{label: 'UnAssigned', value: 20},
+					{label: 'Assigned', value: 40},
+					{label: 'Closed', value: 25},
+					{label: 'In Progress', value: 15}
 				  ],
 				  colors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
 				  formatter: function (y) {
